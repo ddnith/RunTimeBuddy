@@ -43,6 +43,7 @@ public class MainActivity extends Activity implements
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
     Location mCurrentLocation;
+    Location mLastLocation;
     String mLastUpdateTime;
 
     @Override
@@ -152,7 +153,9 @@ public class MainActivity extends Activity implements
     @Override
     public void onLocationChanged(Location location) {
         Log.d(TAG, "Firing onLocationChanged..............................................");
+        mLastLocation = mCurrentLocation;
         mCurrentLocation = location;
+        if(mLastLocation == null)mLastLocation = mCurrentLocation;
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
         updateUI();
     }
@@ -166,7 +169,8 @@ public class MainActivity extends Activity implements
                     "Latitude: " + lat + "\n" +
                     "Longitude: " + lng + "\n" +
                     "Accuracy: " + mCurrentLocation.getAccuracy() + "\n" +
-                    "Provider: " + mCurrentLocation.getProvider());
+                    "Provider: " + mCurrentLocation.getProvider()+"\n"+
+                    "Distance Travelled "+mCurrentLocation.distanceTo(mLastLocation));
         } else {
             Log.d(TAG, "location is null ...............");
         }
