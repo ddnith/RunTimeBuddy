@@ -31,6 +31,7 @@ import java.util.Date;
 
 
 public class MainActivity extends Activity implements
+
         LocationListener,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener{
